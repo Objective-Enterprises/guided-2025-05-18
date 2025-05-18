@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Image, Button, ListGroup, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import AlertMessage from "../components/AlertMessage";
 import { LinkContainer } from "react-router-bootstrap";
 import { fetchProductDetails } from "../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from 'react-bootstrap/Spinner';
+import { QUANTITY } from "../constants/productActionConstants";
 
 
 
 const ProductPage = () => {
   const { id } = useParams();
 
-  const productDetails = useSelector((state) => state.product.product);
-  const { loading, product } = productDetails;
+  const loading = useSelector(state => state.product.loading)
+  const product = useSelector((state) => state.product.product);
+  const quantity = useSelector((state) => state.product.quantity) 
   const loggedInUser = JSON.parse(sessionStorage.getItem('userInfo'));
   console.log(loggedInUser);
   const dispatch = useDispatch();
@@ -84,10 +85,14 @@ const ProductPage = () => {
                   <Col>
                     <Form.Control
                       as="select"
-                      value={selectedQuantity}
-                      onChange={(e) => setSelectedQuantity(e.target.value)}
+                      value={quantity}
+                      onChange={(e) => {
+                        dispatch({ type: QUANTITY, payload: e.target.value })
+                      }}
                     >
-                      {quantityDropdownOptions}
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
                     </Form.Control>
                   </Col>
                 </Row>

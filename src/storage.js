@@ -35,7 +35,8 @@ const initialState = {
     products
   },
   product: {
-    loading: false
+    loading: false,
+    quantity: 0
   }
 };
 const middleware = [thunk];
