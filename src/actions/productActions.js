@@ -7,7 +7,7 @@ export const listProducts = () => async (dispatch) => {
 
   const response = await axios.get(GET_ALL_PRODUCTS_API)
 
-  dispatch({ type: STOP_PRODUCTS, payload: response.data })
+  dispatch({ type: STOP_PRODUCTS, payload: response.data.data })
 }
 
 export const fetchProductDetails = (productId) => async (dispatch) => {
@@ -16,5 +16,5 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
   const url = `${GET_ALL_PRODUCTS_API}/${productId}`
   const response = await axios.get(url)
   
-  dispatch({ type: STOP_PRODUCT, payload: response.data })
+  dispatch({ type: STOP_PRODUCT, payload: response.data.data })
 }
