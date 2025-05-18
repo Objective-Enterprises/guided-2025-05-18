@@ -11,32 +11,26 @@ import Spinner from 'react-bootstrap/Spinner';
 
 const ProductPage = () => {
   const { id } = useParams();
-  
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, success, error, product } = productDetails;
+  const productDetails = useSelector((state) => state.product.product);
+  const { loading, product } = productDetails;
   const loggedInUser = JSON.parse(sessionStorage.getItem('userInfo'));
   console.log(loggedInUser);
   const dispatch = useDispatch();
-
-  //WRITE YOUR CODE HERE
+  useEffect(() => {
+    dispatch(fetchProductDetails(id))
+  }, [dispatch, id])
 
   return (
     <>
       {loading && <Spinner animation="grow" />}
-      {error && (
-        <AlertMessage
-          variant="danger"
-          message="Not able to load product details"
-        />
-      )}
 
       <LinkContainer to="/">
         <Button variant="primary" className="mb-4">
           Show All Products
         </Button>
       </LinkContainer>
-      {success && product && (
+      {product && (
         <Row>
           <Col md={4}>
             <Image src={product.image} width={300} height={300} fluid />
