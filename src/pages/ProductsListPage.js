@@ -12,7 +12,9 @@ const ProductsListPage = () => {
     dispatch(listProducts())
   }, [dispatch])
   const loading = useSelector(state => state.products.loading)
+  console.log('loading', loading)
   const productsList = useSelector(state => state.products.products)
+  console.log('productsList', productsList)
   if (loading) {
     return <Spinner />
   }
