@@ -20,6 +20,8 @@ export const fetchProductDetailsReducer = (state = { product: {} }, action) => {
       return { ...state, loading: true }
     }
     case STOP_PRODUCT: {
+      const json = JSON.stringify(action.payload)
+      localStorage.setItem('products', json)
       return { ...state, loading: false, product: action.payload }
     }
     default: {

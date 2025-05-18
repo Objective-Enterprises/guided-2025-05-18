@@ -8,12 +8,16 @@ import {
   userLogoutReducer,
 } from "./reducers/userReducers";
 
-//WRITE YOUR CODE HERE
+import {
+  listProductsReducer,
+  fetchProductDetailsReducer
+} from './reducers/productReducers'
 
 const reducer = combineReducers({
   login: userLoginReducer,
-  logout: userLogoutReducer
-  //WRITE YOUR CODE HERE
+  logout: userLogoutReducer,
+  product: fetchProductDetailsReducer,
+  products: listProductsReducer
 });
 
 
@@ -21,11 +25,18 @@ const userInfoFromLocalStorage = sessionStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-//WRITE YOUR CODE HERE
+const localProducts = localStorage.getItem('products')
+const products = JSON.parse(localProducts)
 
 const initialState = {
-  login: { userInfo: userInfoFromLocalStorage }
-  //WRITE YOUR CODE HERE
+  login: { userInfo: userInfoFromLocalStorage },
+  products: {
+    loading: false,
+    products
+  },
+  product: {
+    loading: false
+  }
 };
 const middleware = [thunk];
 
